@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>CHAT ROOM</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+        <style>
+
+            *{
+                background: #f5f5f5;
+                margin: auto;
+                padding: 8px;
+            }
+
+            .submit__button{
+                height: 60px;
+                width: 120px;
+                background: #1186d9;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                transition: 0.2s;
+            }
+            
+            .submit__button:hover{
+                background: #4850f0;
+                transition: 0.2s;
+                transform: scaleX(1.2);
+            }
+
+        </style>
+    </head>
+    <body>
+        <div class="container__active">
+            <ul>
+                <li>Logged in as <span>{{ request.user }}</span></li>
+                <li>Active</li>
+                <li></li>
+            </ul>
+        </div>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        {% if not msgs %}
+        <h3>Sending Message</h3>
+        <form action="" method="POST">
+            {% csrf_token %}
+            {{ msg_form.as_p }}
+            <button type="submit" class="submit__button">Send</button>
+        </form>
+        {% else %}
+        <h3>Reply</h3>
+            <form action="" method="POST">
+                {% csrf_token %}
+                    {{ reply_form.as_p }}
+                    <button type="submit" class="submit__button">Send Reply</button>
+            </form>
+        {% endif %}
+        <br>
+        <br>
+        <br>
+        {% for msg in msgs %}
+        ChatRoom No: {{ msg.id }}
+        <div class="conversation">
+            sent by: {{ msg.user }} : {{ msg.message }}
+        </div>
+        {% endfor %}
+
+        {% if not reply %}
+            {% for rep in replies %}
+            <div class="reply__conversation">
+                Sent by: {{ rep.user }} || {{ rep.reply }}</br>
+            </div>
+                
+            {% endfor %}
+        {% else %}
+            No Reply Given Reply Now
+        {% endif %}
+        <script src="" async defer></script>
+    </body>
+</html>
