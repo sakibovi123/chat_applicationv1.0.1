@@ -7,12 +7,18 @@ from django.db.models import Q
 
 
 def get_home_page_url(request):
-    users = User.objects.all()
-    
+    user = User.objects.all()
+    fu = User.objects.exclude(username=request.user)
+    # h = User.objects.get(id=pk)
+    # print(h)
+    # filtered_user = User.objects.filter(id=request.user).exclude(id=request.user)
+    # print("ALL USERS:" + str(filtered_user))
+
     args = {
-        'users': users
+        'user': user,
+        'fu': fu
+        # 'filtered_user':
     }
-    
     return render(request, 'home.html', args)
 
 def chat_with_user(request, id):

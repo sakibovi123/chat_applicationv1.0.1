@@ -40,8 +40,8 @@
     </div>
         <ul>
 
-        {% if users %}
-            {% for u in users %}
+        {% if user %}
+            {% for u in fu %}
                 <li>{{ u.username }} <span><a href="{% url 'chat' u.id %}">Chat With {{ u.username }}</a></span></li>
             {% endfor %}
         {% else %}
